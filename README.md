@@ -42,15 +42,16 @@ npm run test:mock  # smoke-test the mock analyzer (no browser needed)
 npm test           # mock tests + DOM smoke test of the built app (needs preview running for test:dom)
 ```
 
-## Mock mode (current state)
+## Mock mode (fallback)
 
-Until a real Firebase project is connected, the app runs end-to-end in
+When no Firebase project is connected, the app runs end-to-end in
 **mock mode**: a local rule-based analyzer (`src/mock.ts`) screens the
 pasted URL and contract address (HTTPS, IP host, punycode, URL
 shorteners, abuse-prone TLDs, brand impersonation, urgency wording,
 contract address format). Every mock result is labeled in the UI. Mock
 mode cannot browse the live page or read the chain — it says so in its
-own output.
+own output. The live project below is wired, so the deployed app does
+not use mock mode.
 
 ## Connect a real Firebase project (free, no billing)
 
@@ -117,7 +118,7 @@ mintguard/
 │   ├── main.ts           # Form wiring, stage flow, mode banner
 │   ├── ai.ts             # Firebase AI Logic hybrid calls (live path)
 │   ├── mock.ts           # Rule-based mock analyzer (mock path)
-│   ├── firebaseConfig.ts # Placeholder Firebase config + App Check key
+│   ├── firebaseConfig.ts # Live Firebase web config + App Check key
 │   ├── ui.ts             # Result rendering, verdict badges, SVG icons
 │   └── style.css         # Product styling
 ├── test/
@@ -128,16 +129,17 @@ mintguard/
 
 ## Still to do before submission
 
-- [ ] Create the Firebase project (Spark, no billing) and paste the real
-      config + App Check key/debug token (steps above).
+- [x] Firebase project created (Spark, no billing) and live config +
+      App Check key wired (19 Nov 2026).
+- [x] Live cloud path verified on the deployed app (Stage 1 SCAM 95%,
+      Stage 2 SCAM 99%, `Cloud · Gemini` badge, 19 Nov 2026).
+- [x] Pushed to a public GitHub repo with the Apache-2.0 license visible:
+      https://github.com/Harisminol/mintguard
 - [ ] Test the on-device path in desktop Chrome (Gemini Nano needs
       Chrome 138+, 16 GB RAM, 22 GB free disk; it cannot run on this VM
       or on a phone). Confirm the `On-device` badge appears.
-- [ ] Test the cloud fallback on a machine without Nano and confirm the
-      `Cloud` badge appears.
 - [ ] Record the demo video (≤ 3 minutes, English, on YouTube) showing
       the app working, including at least one on-device run if possible.
-- [ ] Push to a public GitHub repo with the Apache-2.0 license visible.
 - [ ] Submit on Devpost before **1 Dec 2026 05:00 WIB**.
 
 ## Disclaimer
