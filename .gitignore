@@ -1,0 +1,26 @@
+# Dependencies and build output
+node_modules/
+dist/
+dist-ssr/
+
+# Environment / secrets — NEVER commit real secrets (service-account
+# keys, reCAPTCHA *secret* keys, tokens, passwords). The Firebase *web*
+# config in src/firebaseConfig.ts is a public client identifier by design
+# (it ships in the built JS bundle) and is meant to be committed.
+.env
+.env.*
+!.env.example
+*.local
+
+# Firebase local tooling
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/

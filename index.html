@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23059669' d='M12 2l8 3v6c0 5-3.5 9.3-8 11-4.5-1.7-8-6-8-11V5l8-3z'/%3E%3Cpath fill='white' d='M10.6 15.6l-3-3 1.4-1.4 1.6 1.6 4.4-4.4 1.4 1.4z'/%3E%3C/svg%3E"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="MintGuard checks whether an NFT mint is safe before you connect your wallet. On-device AI first, cloud AI when needed — built with Firebase AI Logic hybrid inference."
+    />
+    <title>MintGuard — Check a mint before you connect your wallet</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="brand" href="./" aria-label="MintGuard home">
+          <svg class="brand-mark" viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 2l8 3v6c0 5-3.5 9.3-8 11-4.5-1.7-8-6-8-11V5l8-3z"
+            />
+            <path
+              class="brand-check"
+              d="M10.6 15.6l-3-3 1.4-1.4 1.6 1.6 4.4-4.4 1.4 1.4z"
+            />
+          </svg>
+          <span class="brand-name">MintGuard</span>
+        </a>
+        <span class="header-pill">Hybrid AI &middot; Firebase AI Logic</span>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <section class="hero">
+        <h1>Check a mint before you connect your wallet.</h1>
+        <p class="hero-sub">
+          Paste a mint page link or a contract address. MintGuard screens it
+          for drainer patterns, impersonation, and risky approvals — on your
+          device first, in the cloud only when a deeper look is needed.
+        </p>
+      </section>
+
+      <section class="card checker" aria-label="Mint checker">
+        <div id="mode-banner" class="mode-banner" role="status"></div>
+
+        <form id="check-form" novalidate>
+          <label class="field">
+            <span class="field-label">Mint page URL</span>
+            <input
+              id="mint-url"
+              type="text"
+              inputmode="url"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="https://example-mint.xyz"
+            />
+          </label>
+
+          <label class="field">
+            <span class="field-label">Contract address (EVM)</span>
+            <input
+              id="contract"
+              type="text"
+              inputmode="text"
+              autocomplete="off"
+              spellcheck="false"
+              placeholder="0x…"
+            />
+          </label>
+
+          <button id="check-btn" class="btn btn-primary" type="submit">
+            Check mint
+          </button>
+          <p class="hint">
+            Paste at least one of the two. The quick screen runs on-device
+            when Gemini Nano is available; nothing leaves your device for
+            that step.
+          </p>
+        </form>
+
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+        <div id="results" class="results"></div>
+
+        <button id="deep-btn" class="btn btn-secondary" type="button" hidden>
+          Run deep cloud analysis
+        </button>
+      </section>
+
+      <section class="card how" aria-label="How hybrid inference works">
+        <h2>How the hybrid check works</h2>
+        <ol class="steps">
+          <li>
+            <strong>On-device first.</strong> The quick screen runs on
+            Gemini Nano in your browser when a local model is available.
+            It is fast, private, and free — your input never leaves the
+            device for this step.
+          </li>
+          <li>
+            <strong>Cloud when it matters.</strong> If no on-device model
+            is available, or when you ask for a deep analysis, the same
+            request goes to Gemini in the cloud through Firebase AI Logic
+            for a fuller verdict and checklist.
+          </li>
+          <li>
+            <strong>You always see where it ran.</strong> Every answer
+            carries a badge — <span class="badge badge-device">On-device &middot; Gemini Nano</span>
+            or <span class="badge badge-cloud">Cloud &middot; Gemini</span> —
+            so the routing is never hidden from you.
+          </li>
+        </ol>
+      </section>
+
+      <section class="card limits" aria-label="What MintGuard cannot do">
+        <h2>What MintGuard cannot check</h2>
+        <ul>
+          <li>
+            It cannot browse the live mint page or read the contract from
+            the chain — it reasons from what you paste. Always verify a
+            contract on a block explorer before minting.
+          </li>
+          <li>
+            A “SAFE” verdict is not a guarantee. Scams evolve; treat every
+            result as a second opinion, not permission to connect your
+            wallet.
+          </li>
+          <li>
+            MintGuard never asks you to connect a wallet, sign anything,
+            or approve a transaction. Any mint page that demands a
+            signature just to view it is itself a red flag.
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>
+          MintGuard is a free tool built for the
+          <a href="https://firebasehybridaihackathon.devpost.com/">#BuildHybridAI 2026</a>
+          hackathon. Not financial advice — do your own research.
+        </p>
+      </div>
+    </footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
