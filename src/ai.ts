@@ -104,6 +104,7 @@ function deepAnalysisPrompt(input: MintInput): string {
     "Contract address: " + (input.contract.trim() || "(none provided)"),
     "Cover these checks explicitly, one flag each: contract address format and plausibility; mint page URL trust (domain, protocol, impersonation, urgency); mint price reasonableness; wallet approvals a mint like this typically requests and their danger; known drainer / wallet-drainer patterns; social proof signals.",
     "Rules: answer in English. Be strict: an unknown is a warning, not a pass. Never claim you browsed the page or read the chain — you only have the data above. Say what the user should verify manually.",
+    "Consistency rule: if the supplied URL and contract match a widely-known legitimate project and are consistent with each other, treat that as positive evidence. Do not downgrade the verdict solely because you cannot browse the page or read the chain live — record that limitation as an info-severity flag, not a risk. Keep the strict posture for anything unknown, inconsistent, or impersonating a known brand.",
     "Reply with STRICT JSON only, no markdown fences, no extra text:",
     '{"verdict":"SAFE|RISKY|SCAM","confidence":0-100,"flags":[{"label":"short label","severity":"pass|info|warn|risk","detail":"one or two sentences"}],"summary":"two or three plain sentences","recommendations":["one concrete next step","another if needed"]}',
     "Keep it focused: at most 8 flags and 3 recommendations.",
