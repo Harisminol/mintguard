@@ -70,13 +70,36 @@
             />
           </label>
 
-          <button id="check-btn" class="btn btn-primary" type="submit">
-            Check mint
-          </button>
+          <div class="form-actions">
+            <button id="check-btn" class="btn btn-primary" type="submit">
+              Check mint
+            </button>
+            <button id="clear-btn" class="btn btn-secondary" type="button">
+              Clear
+            </button>
+          </div>
           <p class="hint">
-            Paste at least one of the two. The quick screen runs on-device
-            when Gemini Nano is available; nothing leaves your device for
-            that step.
+            Paste at least one of the two. For the most reliable verdict,
+            paste both — a URL alone cannot be verified against a
+            contract. The quick screen runs on-device when Gemini Nano is
+            available; nothing leaves your device for that step.
+          </p>
+          <p class="examples">
+            <span class="examples-label">No mint handy? Try one:</span>
+            <button
+              id="example-scam"
+              class="example-btn"
+              type="button"
+            >
+              Suspicious mint
+            </button>
+            <button
+              id="example-legit"
+              class="example-btn"
+              type="button"
+            >
+              Well-known mint
+            </button>
           </p>
         </form>
 

@@ -25,6 +25,18 @@ const checkBtn = required(
   document.querySelector<HTMLButtonElement>("#check-btn"),
   "#check-btn",
 );
+const clearBtn = required(
+  document.querySelector<HTMLButtonElement>("#clear-btn"),
+  "#clear-btn",
+);
+const exampleScamBtn = required(
+  document.querySelector<HTMLButtonElement>("#example-scam"),
+  "#example-scam",
+);
+const exampleLegitBtn = required(
+  document.querySelector<HTMLButtonElement>("#example-legit"),
+  "#example-legit",
+);
 const deepBtn = required(
   document.querySelector<HTMLButtonElement>("#deep-btn"),
   "#deep-btn",
@@ -56,8 +68,53 @@ function readInput(): MintInput {
 function setBusy(busy: boolean): void {
   checkBtn.disabled = busy;
   deepBtn.disabled = busy;
+  clearBtn.disabled = busy;
+  exampleScamBtn.disabled = busy;
+  exampleLegitBtn.disabled = busy;
   checkBtn.textContent = busy ? "Checking…" : "Check mint";
 }
+
+function formatSeconds(ms: number): string {
+  return `${(ms / 1000).toFixed(1)}s`;
+}
+
+/** Reset the form and results so a new mint can be checked. */
+function resetChecker(): void {
+  urlInput.value = "";
+  contractInput.value = "";
+  resultsEl.innerHTML = "";
+  lastInput = null;
+  deepDone = false;
+  deepBtn.hidden = true;
+  setStatus("");
+  urlInput.focus();
+}
+
+clearBtn.addEventListener("click", resetChecker);
+
+// One-click demo inputs. The suspicious example is a known drainer-style
+// pattern (verified SCAM 99% on the live app); the well-known example is
+// the Bored Ape Yacht Club site + its verified Ethereum contract.
+const EXAMPLES = {
+  scam: {
+    url: "https://free-bored-ape-mint-claim.xyz",
+    contract: "0x1234567890abcdef1234567890abcdef12345678",
+  },
+  legit: {
+    url: "https://boredapeyachtclub.com",
+    contract: "0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D",
+  },
+} as const;
+
+function runExample(kind: keyof typeof EXAMPLES): void {
+  const example = EXAMPLES[kind];
+  urlInput.value = example.url;
+  contractInput.value = example.contract;
+  form.requestSubmit();
+}
+
+exampleScamBtn.addEventListener("click", () => runExample("scam"));
+exampleLegitBtn.addEventListener("click", () => runExample("legit"));
 
 // Show which mode the app is running in before any check happens.
 if (isLiveMode()) {
@@ -84,13 +141,15 @@ form.addEventListener("submit", async (event) => {
   resultsEl.innerHTML = "";
   setBusy(true);
   setStatus("Running quick screen…");
+  const startedAt = performance.now();
   try {
     const result = await runQuickScreen(input);
+    const elapsed = formatSeconds(performance.now() - startedAt);
     renderResult(resultsEl, result, "Stage 1 — Quick screen");
     setStatus(
       result.source === "ON_DEVICE"
-        ? "Quick screen ran on-device. Want a deeper look? Run the cloud analysis below."
-        : "Quick screen complete. Run the deep cloud analysis below for a fuller checklist.",
+        ? `Quick screen ran on-device in ${elapsed}. Want a deeper look? Run the cloud analysis below.`
+        : `Quick screen complete in ${elapsed}. Run the deep cloud analysis below for a fuller checklist.`,
     );
     deepBtn.hidden = false;
   } catch (err) {
@@ -108,13 +167,15 @@ deepBtn.addEventListener("click", async () => {
   deepBtn.hidden = true;
   setBusy(true);
   setStatus("Running deep cloud analysis…");
+  const startedAt = performance.now();
   try {
     const result = await runDeepAnalysis(lastInput);
+    const elapsed = formatSeconds(performance.now() - startedAt);
     const stage = document.createElement("div");
     stage.className = "stage-2";
     resultsEl.appendChild(stage);
     renderResult(stage, result, "Stage 2 — Deep analysis");
-    setStatus("Deep analysis complete.");
+    setStatus(`Deep analysis complete in ${elapsed}.`);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     const stage = document.createElement("div");

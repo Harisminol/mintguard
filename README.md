@@ -135,11 +135,20 @@ mintguard/
       Stage 2 SCAM 99%, `Cloud · Gemini` badge, 19 Nov 2026).
 - [x] Pushed to a public GitHub repo with the Apache-2.0 license visible:
       https://github.com/Harisminol/mintguard
+- [x] Demo video recorded (≤ 3 minutes, English, on YouTube):
+      https://www.youtube.com/watch?v=TZeWNIVOjUY — shows the app
+      working end to end. (Recorded before the 20 Nov 2026 polish pass
+      below; the flow is unchanged, only example buttons, a Clear
+      button, and per-stage timing were added. Re-recording is optional.)
+- [x] Polish pass (20 Nov 2026): one-click example inputs (suspicious
+      mint → SCAM 99%; Bored Ape Yacht Club site + verified contract),
+      Clear button, per-stage timing in the status line, hint copy
+      nudging users to paste both URL and contract. DOM smoke test
+      made mode-aware (live mode skips AI assertions that need a real
+      browser + App Check).
 - [ ] Test the on-device path in desktop Chrome (Gemini Nano needs
       Chrome 138+, 16 GB RAM, 22 GB free disk; it cannot run on this VM
       or on a phone). Confirm the `On-device` badge appears.
-- [ ] Record the demo video (≤ 3 minutes, English, on YouTube) showing
-      the app working, including at least one on-device run if possible.
 - [ ] Submit on Devpost before **1 Dec 2026 05:00 WIB**.
 
 ## Disclaimer
